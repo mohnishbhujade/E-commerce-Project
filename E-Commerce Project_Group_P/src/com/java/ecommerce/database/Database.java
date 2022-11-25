@@ -1,6 +1,10 @@
 package com.java.ecommerce.database;
 
-import java.util.ArrayList;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.LinkedList;
 import java.util.Scanner;
 
 public class Database {
@@ -20,21 +24,23 @@ public class Database {
 	}
 	public static void registerUser(){
 		 
-		 	ArrayList list = new ArrayList();
+		 	LinkedList<Database> list = new LinkedList<>();
 		 Scanner scanner = new Scanner(System.in);
 		 	System.out.println("Please Enter your information.");
+		 	System.out.println();
 		 	System.out.println("Enter your name");
 		 		 name =scanner.next(); 
 		 	System.out.println("Enter your email  ");
 		 		 email = scanner.next();
 		 	System.out.println("Enter your Password..");
 		 		 password = scanner.next();
-		 		
-		 		System.out.println("registered successfully..");
-		 Database database = new Database(name,email,password);
+		 		 	
+				 Database database = new Database(name,email,password);
 		 list.add(database);
+		 System.out.println("registered successfully..");
 	 }
 	 public static void logIn() {
+	
 		 Scanner scanner = new Scanner(System.in);
 		 	System.out.println("Enter your email");
 		 		String email1= scanner.next();
@@ -52,5 +58,20 @@ public class Database {
 		 	
 		 	
 	 }
+	  public static void driverConn() throws SQLException {
+		  try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			String url ="jdbc:mysql://localhost:3306/";
+			String user="root";
+			String password="Sharad$20";
+			
+			Connection conn = DriverManager.getConnection(url, user, password);
+			//PreparedStatement ps = conn.prepareStatement(sql);
+			
+		} catch (ClassNotFoundException e) {
+			
+			e.printStackTrace();
+		}
+	  }
 
 }
